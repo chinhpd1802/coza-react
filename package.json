@@ -10,7 +10,9 @@
     "flatpickr": "^4.6.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-helmet": "^6.1.0",
     "react-router-dom": "^5.2.0",
+    "react-script-tag": "^1.1.2",
     "react-scripts": "3.4.1"
   },
   "scripts": {
@@ -22,7 +24,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy": "http://localhost:18028",
+  "proxy": "http://localhost:18020",
   "browserslist": {
     "production": [
       ">0.2%",
