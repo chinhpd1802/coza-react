@@ -1,32 +1,34 @@
 import React from "react";
-// import ProductDetail from "./ProductDetail";
+import Modal from "./Modal";
 
 export default class ProductItem extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-
-        }
-    }
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
   render() {
+    
     return (
       <div className="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
         {/* Block2 */}
         <div className="block2">
           <div className="block2-pic hov-img0">
-            <img src={require('../../assets/images/product-01.jpg')} alt="IMG-PRODUCT" />
-            <a
-              href= "#"
-              className="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1"
+            <img
+              src={require("../../assets/images/product-01.jpg")}
+              alt="IMG-PRODUCT"
+            />
+           <button type="button"
+              className="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04" data-toggle="modal" data-target={`#productModal${this.props.index}`}
             >
               Quick View
-            </a>
+            
+            </button>
           </div>
           <div className="block2-txt flex-w flex-t p-t-14">
             <div className="block2-txt-child1 flex-col-l ">
               <a
-                href={"/products/"+this.props.id}
+                href={"/products/" + this.props.id}
                 className="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6"
               >
                 {this.props.name}
@@ -40,18 +42,19 @@ export default class ProductItem extends React.Component {
               >
                 <img
                   className="icon-heart1 dis-block trans-04"
-                  src={require('../../assets/images/icons/icon-heart-01.png')}
+                  src={require("../../assets/images/icons/icon-heart-01.png")}
                   alt="ICON"
                 />
                 <img
                   className="icon-heart2 dis-block trans-04 ab-t-l"
-                  src={require('../../assets/images/icons/icon-heart-02.png')}
+                  src={require("../../assets/images/icons/icon-heart-02.png")}
                   alt="ICON"
                 />
               </a>
             </div>
           </div>
         </div>
+        <Modal index={this.props.index} name={this.props.name} price={this.props.price}/>
       </div>
     );
   }

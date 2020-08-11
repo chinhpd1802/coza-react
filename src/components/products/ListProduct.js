@@ -17,8 +17,8 @@ export default class ListProduct extends React.Component {
     return (
       <div className="container">
         <div className="row isotope-grid">
-        {this.state.products.map((product) => (
-          <ProductItem key={product._id} name={product.name} price={product.price} id={product._id} />
+        {this.state.products.map((product,index) => (
+          <ProductItem key={product._id} name={product.name} price={product.price} id={product._id} index={index}/>
         ))}
         </div>
       </div>
