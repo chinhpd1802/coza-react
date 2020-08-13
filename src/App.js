@@ -24,7 +24,7 @@ import "./App.css";
 class App extends React.Component {
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Header />
         <Router>
           <Switch>
@@ -36,7 +36,7 @@ class App extends React.Component {
               path="/products"
               render={({ match: { url } }) => (
                 <>
-                  <Route path={`${url}/`} component={ListProduct} exact />
+                  <Route path={`${url}/`} component={(props) => <ListProduct {...props} api={`/api/products/preview-list`} />} exact />
                   <Route path={`${url}/:id`} component={ProductDetail} />
                 </>
               )}
@@ -44,7 +44,7 @@ class App extends React.Component {
           </Switch>
         </Router>
         <Footer />
-      </div>
+      </React.Fragment>
     );
   }
 }
