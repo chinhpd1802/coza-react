@@ -1,7 +1,9 @@
 import React from "react";
 import Product from "./Product";
-import { withRouter  } from "react-router-dom";
-export default class ProductDetail extends React.Component {
+import { connect } from "react-redux";
+import { addToCart } from "../../store/actions/cartActions";
+import { withRouter } from "react-router-dom";
+class ProductDetail extends React.Component {
   constructor(props) {
     super(props);
     this.getProduct = this.getProduct.bind(this);
@@ -17,12 +19,25 @@ export default class ProductDetail extends React.Component {
   componentDidMount() {
     this.getProduct(this.props.match.params.id);
   }
+  addToCart = (product) => {
+    this.props.addToCart(product);
+  };
+
   render() {
     const { product } = this.state;
+    console.log(product);
     return (
       <section className="sec-product-detail bg0 p-t-65 p-b-60">
         <div className="container">
-         <Product name={product.name} price={product.price}/>
+          <Product
+            product={product}
+            addToCart={this.addToCart}
+            inCart={
+              this.props.cart.length > 0 &&
+              this.props.cart.filter((e) => e.product._id === product._id)
+                .length > 0
+            }
+          />
           <div className="bor10 m-t-50 p-t-43 p-b-40">
             {/* Tab01 */}
             <div className="tab01">
@@ -237,3 +252,19 @@ export default class ProductDetail extends React.Component {
   }
 }
 // export default ProductDetail
+const mapStateToProps = (state) => {
+  return {
+    products: state.product.products,
+    cart: state.cart.cart,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addToCart: (product) => {
+      dispatch(addToCart(product));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);

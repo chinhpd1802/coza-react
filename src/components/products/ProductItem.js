@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "./Modal";
-
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 export default class ProductItem extends React.Component {
   constructor(props) {
     super(props);
@@ -54,7 +55,7 @@ export default class ProductItem extends React.Component {
             </div>
           </div>
         </div>
-        <Modal index={this.props.index} name={this.props.name} price={this.props.price}/>
+        <Modal index={this.props.index} product={this.props.product}/>
       </div>
     );
   }

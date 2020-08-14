@@ -1,7 +1,15 @@
 import React from "react";
-
-export default class Header extends React.Component {
+import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
+class Header extends React.Component {
   render() {
+    this.props.cartUpdated();
+
+    let total = 0;
+
+    this.props.cart.map(
+      (item) => (total += item.product.price * item.quantity)
+    );
     return (
       <header className="header-v4">
         {/* Header desktop */}
@@ -47,7 +55,15 @@ export default class Header extends React.Component {
                     <a href="/products">Shop</a>
                   </li>
                   <li className="label1" data-label1="hot">
-                    <a href="shoping-cart.html">Features</a>
+                    <NavLink to="/shoping-cart">
+                      {this.props.cart.length > 0 ? (
+                        <span className="label label-info">
+                          {this.props.cart.length} items: (${total.toFixed(2)})
+                        </span>
+                      ) : null}
+                      <i className="glyphicon glyphicon-shopping-cart"></i> My
+                      Cart
+                    </NavLink>
                   </li>
                   <li>
                     <a href="blog.html">Blog</a>
@@ -67,7 +83,9 @@ export default class Header extends React.Component {
                 </div>
                 <div
                   className="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-                  data-notify={2}
+                  data-notify={
+                    this.props.cart.length > 0 ? this.props.cart.length : 0
+                  }
                 >
                   <i className="zmdi zmdi-shopping-cart" />
                 </div>
@@ -100,7 +118,9 @@ export default class Header extends React.Component {
             </div>
             <div
               className="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
-              data-notify={2}
+              data-notify={
+                this.props.cart.length > 0 ? this.props.cart.length : 0
+              }
             >
               <i className="zmdi zmdi-shopping-cart" />
             </div>
@@ -155,13 +175,14 @@ export default class Header extends React.Component {
               <a href="/products">Shop</a>
             </li>
             <li>
-              <a
-                href="shoping-cart.html"
-                className="label1 rs1"
-                data-label1="hot"
-              >
-                Features
-              </a>
+              <NavLink to="/shoping-cart">
+                {this.props.cart.length > 0 ? (
+                  <span className="label label-info">
+                    {this.props.cart.length} items: (${total.toFixed(2)})
+                  </span>
+                ) : null}
+                <i className="glyphicon glyphicon-shopping-cart"></i> My Cart
+              </NavLink>
             </li>
             <li>
               <a href="blog.html">Blog</a>
@@ -197,3 +218,13 @@ export default class Header extends React.Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    cart: state.cart.cart,
+    cartUpdated: () => {
+      return true;
+    },
+  };
+};
+
+export default connect(mapStateToProps)(Header);

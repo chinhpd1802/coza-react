@@ -1,8 +1,9 @@
 import React, { Fragment } from "react";
 import ProductItem from "./ProductItem";
-import Async from "react-async";
+import { connect } from 'react-redux';
+import {addToCart} from "../../store/actions/cartActions";
 
-export default class ListProduct extends React.Component {
+class ListProduct extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,7 +32,6 @@ export default class ListProduct extends React.Component {
   }
   renderList = (products) => {
     return (
-      <div className="container">
         <div className="row isotope-grid">
           {products.map((product, index) => (
             <ProductItem
@@ -41,16 +41,34 @@ export default class ListProduct extends React.Component {
               category={product.category}
               id={product._id}
               index={index}
+              product={product} 
             />
           ))}
         </div>
-      </div>
     );
   };
   render() {
     const { loading, products } = this.state;
     return (
-      <Fragment>{loading ? "loading" : this.renderList(products)}</Fragment>
+      <Fragment>{loading ? <div className="container"><img src={require('../../assets/images/icons/loading.gif')}></img></div> : this.renderList(products)}</Fragment>
     );
   }
 }
+const mapStateToProps = (state) => {
+
+  return {
+      products: state.product.products,
+      cart: state.cart.cart
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      addToCart: (product) => {
+          dispatch(addToCart(product));
+      }
+  }
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListProduct)

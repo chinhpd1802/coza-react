@@ -1,20 +1,20 @@
 import React from "react";
 import Product from "./Product";
-// import "../../assets/vendor/select2/select2.min.css";
-// import "../../assets/vendor/daterangepicker/daterangepicker.css";
-// import "../../assets/vendor/slick/slick.css";
-// import "../../assets/vendor/animate/animate.css";
+import { connect } from 'react-redux';
+import {addToCart} from "../../store/actions/cartActions";
 
-export default class Modal extends React.Component {
+class Modal extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      product: {},
+    };
   }
-
+  addToCart = (product) => {
+    this.props.addToCart(product);
+}
   render() {
-    // let wrap_modal = "wrap-modal" + this.props.index;
-    // let js_modal = "js-modal" + this.props.index;
-    // let overlay_modal = "overlay-modal" + this.props.index;
-    // let js_hide_modal = "js-hide-modal" + this.props.index;
+    const { product } = this.props;
     return (
       <div
         className="modal fade" 
@@ -39,7 +39,15 @@ export default class Modal extends React.Component {
               </button>
             </div>
             <div className="modal-body">
-              <Product name={this.props.name} price={this.props.price} />
+            <Product
+            product={product}
+            addToCart={this.addToCart}
+            inCart={
+              this.props.cart.length > 0 &&
+              this.props.cart.filter((e) => e.product._id === product._id)
+                .length > 0
+            }
+          />
             </div>
           </div>
         </div>
@@ -47,3 +55,19 @@ export default class Modal extends React.Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    products: state.product.products,
+    cart: state.cart.cart,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addToCart: (product) => {
+      dispatch(addToCart(product));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Modal);
