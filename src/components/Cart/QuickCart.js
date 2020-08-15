@@ -2,6 +2,7 @@ import React from "react";
 
 export default class QuickCart extends React.Component {
   render() {
+   
     return (
       <div className="wrap-header-cart js-panel-cart">
         <div className="s-full js-hide-cart" />
@@ -14,52 +15,11 @@ export default class QuickCart extends React.Component {
           </div>
           <div className="header-cart-content flex-w js-pscroll">
             <ul className="header-cart-wrapitem w-full">
-              <li className="header-cart-item flex-w flex-t m-b-12">
-                <div className="header-cart-item-img">
-                  <img src="images/item-cart-01.jpg" alt="IMG" />
-                </div>
-                <div className="header-cart-item-txt p-t-8">
-                  <a
-                    href="#"
-                    className="header-cart-item-name m-b-18 hov-cl1 trans-04"
-                  >
-                    White Shirt Pleat
-                  </a>
-                  <span className="header-cart-item-info">1 x $19.00</span>
-                </div>
-              </li>
-              <li className="header-cart-item flex-w flex-t m-b-12">
-                <div className="header-cart-item-img">
-                  <img src="images/item-cart-02.jpg" alt="IMG" />
-                </div>
-                <div className="header-cart-item-txt p-t-8">
-                  <a
-                    href="#"
-                    className="header-cart-item-name m-b-18 hov-cl1 trans-04"
-                  >
-                    Converse All Star
-                  </a>
-                  <span className="header-cart-item-info">1 x $39.00</span>
-                </div>
-              </li>
-              <li className="header-cart-item flex-w flex-t m-b-12">
-                <div className="header-cart-item-img">
-                  <img src="images/item-cart-03.jpg" alt="IMG" />
-                </div>
-                <div className="header-cart-item-txt p-t-8">
-                  <a
-                    href="#"
-                    className="header-cart-item-name m-b-18 hov-cl1 trans-04"
-                  >
-                    Nixon Porter Leather
-                  </a>
-                  <span className="header-cart-item-info">1 x $17.00</span>
-                </div>
-              </li>
+             {this.props.cart} 
             </ul>
             <div className="w-full">
               <div className="header-cart-total w-full p-tb-40">
-                Total: $75.00
+                Total: ${this.props.total}
               </div>
               <div className="header-cart-buttons flex-w w-full">
                 <a

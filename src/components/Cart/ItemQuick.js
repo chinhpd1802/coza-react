@@ -5,7 +5,7 @@ import {
   updateCartQuantity,
   removeFromCart,
 } from "../../store/actions/cartActions";
-class CartItem extends React.Component {
+class ItemQuick extends React.Component {
   constructor(props) {
     super(props);
 
@@ -58,46 +58,20 @@ class CartItem extends React.Component {
     const { item } = this.props;
     // console.log(item);
     return (
-      <tr className="table_row">
-        <td className="column-1">
-          <div className="how-itemcart1" onClick={this.handleRemove}>
-            <img src="images/item-cart-05.jpg" alt="IMG" />
-          </div>
-        </td>
-        <td className="column-2">{item.product.name}</td>
-        <td className="column-3">{item.product.price}</td>
-        {/* <form onSubmit={this.handleSubmit}> */}
-        <td className="column-4">
-          <div className="wrap-num-product flex-w m-l-auto m-r-0">
-            <div
-              className="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m"
-              // onClick={this.handleChange}
-            >
-              <i className="fs-16 zmdi zmdi-minus" />
-            </div>
-
-            <input
-              className="mtext-104 cl3 txt-center num-product"
-              type="number"
-              name="num-product2"
-              // defaultValue={1}
-              onChange={this.handleChange}
-              value={this.state.quantity}
-            />
-
-            <div
-              className="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m"
-              // onClick={this.handleChange}
-            >
-              <i className="fs-16 zmdi zmdi-plus" />
-            </div>
-          </div>
-        </td>
-        {/* </form> */}
-        <td className="column-5">
-          {item.product.price * this.state.quantity}{" "}
-        </td>
-      </tr>
+        <li className="header-cart-item flex-w flex-t m-b-12">
+        <div className="header-cart-item-img"  onClick={this.handleRemove}>
+          <img src="images/item-cart-03.jpg" alt="IMG"/>
+        </div>
+        <div className="header-cart-item-txt p-t-8">
+          <a
+            href={"/products/"+item.product._id}
+            className="header-cart-item-name m-b-18 hov-cl1 trans-04"
+          >
+            {item.product.name}
+          </a>
+          <span className="header-cart-item-info">{item.quantity} x ${item.product.price}</span>
+        </div>
+      </li>
     );
   }
 }
@@ -110,4 +84,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(CartItem);
+export default connect(null, mapDispatchToProps)(ItemQuick);

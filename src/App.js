@@ -7,7 +7,7 @@ import ProductDetail from "./components/products/ProductDetail";
 import HomePage from "./components/home/HomePage";
 import ProductPage from "./components/home/ProductPage";
 import CartPage from "./components/home/CartPage";
-import QuickCart from "./components/Cart/QuickCart";
+// import QuickCart from "./components/Cart/QuickCart";
 import "./App.css";
 
 class App extends React.Component {
@@ -17,7 +17,7 @@ class App extends React.Component {
         
         <Router>
         <Header />
-        <QuickCart/>
+       
           <Switch>
             <Route path="/" exact>
               <HomePage/>

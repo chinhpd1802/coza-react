@@ -26,7 +26,7 @@ const initialState = {
   
               newCart.push(item);
   
-              return {
+              return {  
                   ...state,
                   cart: newCart
               };

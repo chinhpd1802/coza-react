@@ -66,7 +66,7 @@ console.log(cart);
                     <span className="stext-110 cl2">Subtotal:</span>
                   </div>
                   <div className="size-209">
-                    <span className="mtext-110 cl2"></span>
+                    <span className="mtext-110 cl2">${total.toFixed(3)}</span>
                   </div>
                 </div>
                 <div className="flex-w flex-t bor12 p-t-15 p-b-30">
@@ -117,7 +117,7 @@ console.log(cart);
                     <span className="mtext-101 cl2">Total:</span>
                   </div>
                   <div className="size-209 p-t-1">
-                    <span className="mtext-110 cl2">$79.65</span>
+                    <span className="mtext-110 cl2">${total.toFixed(3)}</span>
                   </div>
                 </div>
                 <button className="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">

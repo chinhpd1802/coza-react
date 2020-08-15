@@ -1,6 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
+import QuickCart from "../../components/Cart/QuickCart";
+import CartItem from "../Cart/CartItem";
+import ItemQuick from "../Cart/ItemQuick"
 class Header extends React.Component {
   render() {
     this.props.cartUpdated();
@@ -10,6 +13,13 @@ class Header extends React.Component {
     this.props.cart.map(
       (item) => (total += item.product.price * item.quantity)
     );
+    const cart = this.props.cart.map((item) => {
+      return (
+
+          <ItemQuick item={item} key={item.product._id} />
+       
+      );
+    });
     return (
       <header className="header-v4">
         {/* Header desktop */}
@@ -56,13 +66,7 @@ class Header extends React.Component {
                   </li>
                   <li className="label1" data-label1="hot">
                     <NavLink to="/shoping-cart">
-                      {this.props.cart.length > 0 ? (
-                        <span className="label label-info">
-                          {this.props.cart.length} items: (${total.toFixed(2)})
-                        </span>
-                      ) : null}
-                      <i className="glyphicon glyphicon-shopping-cart"></i> My
-                      Cart
+                       My Cart
                     </NavLink>
                   </li>
                   <li>
@@ -176,12 +180,7 @@ class Header extends React.Component {
             </li>
             <li>
               <NavLink to="/shoping-cart">
-                {this.props.cart.length > 0 ? (
-                  <span className="label label-info">
-                    {this.props.cart.length} items: (${total.toFixed(2)})
-                  </span>
-                ) : null}
-                <i className="glyphicon glyphicon-shopping-cart"></i> My Cart
+                 My Cart
               </NavLink>
             </li>
             <li>
@@ -214,6 +213,7 @@ class Header extends React.Component {
             </form>
           </div>
         </div>
+        <QuickCart total={total} cart={cart}/>
       </header>
     );
   }
