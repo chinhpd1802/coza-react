@@ -19,8 +19,8 @@ class ProductDetail extends React.Component {
   componentDidMount() {
     this.getProduct(this.props.match.params.id);
   }
-  addToCart = (product) => {
-    this.props.addToCart(product);
+  addToCart = (product,quantity) => {
+    this.props.addToCart(product,quantity);
   };
 
   render() {
@@ -261,8 +261,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addToCart: (product) => {
-      dispatch(addToCart(product));
+    addToCart: (product,quantity) => {
+      dispatch(addToCart(product,quantity));
     },
   };
 };

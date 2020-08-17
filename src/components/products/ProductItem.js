@@ -9,14 +9,16 @@ export default class ProductItem extends React.Component {
   }
 
   render() {
-    
+      let max=16;
+      let linkimg = Math.floor(Math.random() * Math.floor(max));
     return (
       <div className={`col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item ${this.props.category}`}>
         {/* Block2 */}
         <div className="block2">
           <div className="block2-pic hov-img0">
+            {}
             <img
-              src={require("../../assets/images/product-01.jpg")}
+              src={require(`../../assets/images/product-${linkimg}.jpg`)}
               alt="IMG-PRODUCT"
             />
            <button type="button"

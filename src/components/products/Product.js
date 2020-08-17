@@ -6,12 +6,30 @@ import { connect } from "react-redux";
 export default class Product extends React.Component {
   state = {
     inCart: this.props.inCart,
+    quantity: 0
   };
-
+  IncrementItem = () => {
+    this.setState({ quantity: this.state.quantity + 1 });
+  };
+  DecreaseItem = () => {
+    if (this.state.quantity < 1) {
+      this.setState({
+        quantity: 0,
+      });
+    } else {
+      this.setState({
+        quantity: this.state.quantity - 1,
+      });
+    }
+  };
+ 
+  handleChange(event) {
+    this.setState({ quantity: event.target.value });
+  }
   addToCart = (e) => {
     e.preventDefault();
 
-    this.props.addToCart(this.props.product);
+    this.props.addToCart(this.props.product,this.state.quantity);
 
     this.setState({
       inCart: true,
@@ -21,6 +39,7 @@ export default class Product extends React.Component {
   render() {
     const { product } = this.props;
     // product.quantity = 1;
+    console.log(this.state.quantity);
     return (
       <div className="row">
         <div className="col-md-6 col-lg-7 p-b-30">
@@ -129,25 +148,33 @@ export default class Product extends React.Component {
               <div className="flex-w flex-r-m p-b-10">
                 <div className="size-204 flex-w flex-m respon6-next">
                   <div className="wrap-num-product flex-w m-r-20 m-tb-10">
-                    <div className="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                    <div className="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m"  onClick={this.DecreaseItem}>
                       <i className="fs-16 zmdi zmdi-minus" />
+                     
                     </div>
                     <input
                       className="mtext-104 cl3 txt-center num-product"
                       type="number"
                       name="num-product"
-                      defaultValue={1}
+                      onChange={this.handleChange.bind(this)}
+                      value={this.state.quantity}
                     />
-                    <div className="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                    <div className="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m"  onClick={this.IncrementItem}>
                       <i className="fs-16 zmdi zmdi-plus" />
                     </div>
                   </div>
-                  <button
-                    className="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
-                    onClick={this.addToCart}
-                  >
-                    Add to cart
-                  </button>
+                  {this.state.inCart ? (
+                    <button className="flex-c-m stext-101 cl0 size-101 bor1 p-lr-15 trans-04 btn btn-success" disabled>
+                      Added to cart
+                    </button>
+                  ) : (
+                    <button
+                      className="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
+                      onClick={this.addToCart}
+                    >
+                      Add to cart
+                    </button>
+                  )}
                 </div>
               </div>
             </div>

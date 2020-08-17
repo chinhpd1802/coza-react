@@ -14,27 +14,42 @@ class CartItem extends React.Component {
       btnVisible: false,
     };
   }
-
-  handleChange = (e) => {
-    if (e.target.value <= 0) {
-      alert("Quantity must be greater than or equal to 1");
-
-      return;
+  IncrementItem = () => {
+    this.setState({ quantity: this.state.quantity + 1 });
+  };
+  DecreaseItem = () => {
+    if (this.state.quantity < 1) {
+      this.setState({
+        quantity: 0,
+      });
+    } else {
+      this.setState({
+        quantity: this.state.quantity - 1,
+      });
     }
+    
+  };
+  handleChange  (e) {
+    // if (e.target.value <= 0) {
+    //   alert("Quantity must be greater than or equal to 1");
 
-    if (e.target.value > this.props.item.product.amount) {
-      alert("You have exceeded the available items of this product!");
+    //   return;
+    // }
 
-      return;
-    }
+    // if (e.target.value > this.props.item.product.amount) {
+    //   alert("You have exceeded the available items of this product!");
 
-    if (this.state.quantity != e.target.value) {
+    //   return;
+    // }
+
+    // if (this.state.quantity != e.target.value) {
       this.setState({
         quantity: e.target.value,
         btnVisible: true,
       });
-    }
-    this.props.updateCartQuantity(this.props.item.product._id, e.target.value);
+      this.props.updateCartQuantity(this.props.item.product._id, e.target.value);
+    // }
+    
   };
 
   handleSubmit = (e) => {
@@ -71,7 +86,7 @@ class CartItem extends React.Component {
           <div className="wrap-num-product flex-w m-l-auto m-r-0">
             <div
               className="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m"
-              // onClick={this.handleChange}
+              onClick={this.DecreaseItem}
             >
               <i className="fs-16 zmdi zmdi-minus" />
             </div>
@@ -81,13 +96,13 @@ class CartItem extends React.Component {
               type="number"
               name="num-product2"
               // defaultValue={1}
-              onChange={this.handleChange}
+              onChange={this.handleChange.bind(this)}
               value={this.state.quantity}
             />
 
             <div
               className="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m"
-              // onClick={this.handleChange}
+              onClick={this.IncrementItem}
             >
               <i className="fs-16 zmdi zmdi-plus" />
             </div>
